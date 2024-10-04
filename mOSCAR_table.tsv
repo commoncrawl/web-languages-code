@@ -1,0 +1,164 @@
+#Ref_Name	Code	Family	Script	doc_count	image_count	token_count
+Acehnese	ace_Latn	Austronesian	Latin	7803	32461	2889134
+Mesopotamian Arabic	acm_Arab	Afro-Asiatic	Arabic	2274	10620	1047748
+Tunisian Arabic	aeb_Arab	Afro-Asiatic	Arabic	7640	41570	2715187
+Afrikaans	afr_Latn	Indo-European	Latin	54895	247774	39956585
+South Levantine Arabic	ajp_Arab	Afro-Asiatic	Arabic	12098	87837	5167813
+Tosk Albanian	als_Latn	Indo-European	Latin	861678	2569164	452737251
+Amharic	amh_Ethi	Afro-Asiatic	Ge‘ez	39588	152646	35089019
+North Levantine Arabic	apc_Arab	Afro-Asiatic	Arabic	19904	128966	9560701
+Modern Standard Arabic	arb_Arab	Afro-Asiatic	Arabic	3936851	15126931	3401919964
+Najdi Arabic	ars_Arab	Afro-Asiatic	Arabic	60229	296741	43610873
+Moroccan Arabic	ary_Arab	Afro-Asiatic	Arabic	142386	698051	204723454
+Egyptian Arabic	arz_Arab	Afro-Asiatic	Arabic	835529	4054632	653626387
+Assamese	asm_Beng	Indo-European	Bengali	3948	9210	640390
+Asturian	ast_Latn	Indo-European	Latin	165745	962723	37547944
+Awadhi	awa_Deva	Indo-European	Devanagari	29324	107483	4961635
+Central Aymara	ayr_Latn	Aymaran	Latin	27384	151889	5148970
+South Azerbaijani	azb_Arab	Turkic	Arabic	8274	38233	5256693
+North Azerbaijani	azj_Latn	Turkic	Latin	516021	1808060	257825849
+Bashkir	bak_Cyrl	Turkic	Cyrillic	4532	17174	3038766
+Bambara	bam_Latn	Manding	Latin	7674	39190	1243332
+Balinese	ban_Latn	Austronesian	Latin	1886	11266	542015
+Belarusian	bel_Cyrl	Indo-European	Cyrillic	63309	287539	72976520
+Bemba	bem_Latn	Atlantic–Congo	Latin	1096	7479	1340471
+Bengali	ben_Beng	Indo-European	Bengali	270406	947035	35858814
+Bhojpuri	bho_Deva	Indo-European	Devanagari	6366	28131	875463
+Banjar	bjn_Latn	Austronesian	Latin	5427	27803	1898526
+Bosnian	bos_Latn	Indo-European	Latin	1960599	7633049	1255000505
+Buginese	bug_Latn	Austronesian	Latin	3312	18648	588678
+Bulgarian	bul_Cyrl	Indo-European	Cyrillic	2591998	11670028	1760971620
+Catalan	cat_Latn	Indo-European	Latin	1153864	4736634	606447390
+Cebuano	ceb_Latn	Austronesian	Latin	16990	91234	10748818
+Czech	ces_Latn	Indo-European	Latin	3918837	13291309	2823172996
+Central Kurdish	ckb_Arab	Indo-European	Arabic	36725	136566	22322689
+Crimean Tatar	crh_Latn	Turkic	Latin	6376	24124	1742727
+Welsh	cym_Latn	Indo-European	Latin	40408	165897	27748345
+Danish	dan_Latn	Indo-European	Latin	2076298	9559600	1238277499
+German	deu_Latn	Indo-European	Latin	20662696	87976200	8544986218
+Southwestern Dinka	dik_Latn	Nilo-Saharan	Latin	1712	6635	1319943
+Greek	ell_Grek	Indo-European	Greek	4916081	15209058	2923201041
+English	eng_Latn	Indo-European	Latin	52215013	207904315	33570108782
+Esperanto	epo_Latn	Artificial	Latin	25157	124996	28586195
+Estonian	est_Latn	Uralic	Latin	1040368	5217366	619215048
+Basque	eus_Latn	Isolate	Latin	849043	3445539	277145498
+Faroese	fao_Latn	Indo-European	Latin	15411	60340	6691327
+Fijian	fij_Latn	Austronesian	Latin	1528	8776	487388
+Finnish	fin_Latn	Uralic	Latin	2396033	10365333	1781044864
+French	fra_Latn	Indo-European	Latin	20305739	78179601	14362579829
+Friulian	fur_Latn	Indo-European	Latin	37290	256456	5949600
+Nigerian Fulfulde	fuv_Latn	Atlantic-Congo	Latin	1568	7124	401852
+West Central Oromo	gaz_Latn	Afro-Asiatic	Latin	4058	11763	1786093
+Scottish Gaelic	gla_Latn	Indo-European	Latin	29710	153249	14605090
+Irish	gle_Latn	Indo-European	Latin	68858	315132	47438400
+Galician	glg_Latn	Indo-European	Latin	518973	2381475	217063180
+Guarani	grn_Latn	Tupian	Latin	490945	2416633	89921114
+Gujarati	guj_Gujr	Indo-European	Gujarati	23062	91320	3324866
+Haitian Creole	hat_Latn	Indo-European	Latin	257745	1570699	62847106
+Hausa	hau_Latn	Afro-Asiatic	Latin	25364	104934	13089932
+Hebrew	heb_Hebr	Afro-Asiatic	Hebrew	1109591	4766483	893327320
+Hindi	hin_Deva	Indo-European	Devanagari	579430	1830667	122558353
+Chhattisgarhi	hne_Deva	Indo-European	Devanagari	1581	7263	273174
+Croatian	hrv_Latn	Indo-European	Latin	1719617	8425510	1010674096
+Hungarian	hun_Latn	Uralic	Latin	3534506	15390083	2831715050
+Armenian	hye_Armn	Indo-European	Armenian	339962	1141885	205635952
+Igbo	ibo_Latn	Atlantic-Congo	Latin	11529	68049	8701070
+Ilocano	ilo_Latn	Austronesian	Latin	78872	523195	8116113
+Indonesian	ind_Latn	Austronesian	Latin	7016291	17324777	3981843468
+Icelandic	isl_Latn	Indo-European	Latin	244676	1027465	137015973
+Italian	ita_Latn	Indo-European	Latin	12937153	47476971	8311790842
+Javanese	jav_Latn	Austronesian	Latin	24785	135583	16908805
+Japanese	jpn_Jpan	Japonic	Kanji	14415292	23893768	8923348944
+Kabyle	kab_Latn	Afro-Asiatic	Latin	18508	106730	4079553
+Kannada	kan_Knda	Dravidian	Kannada	12978	42621	1442776
+Kashmiri	kas_Arab	Indo-European	Arabic	3109	11408	5731910
+Georgian	kat_Geor	Kartvelian	Georgian	354436	1304281	275223026
+Kazakh	kaz_Cyrl	Turkic	Cyrillic	252242	732648	140049214
+Halh Mongolian	khk_Cyrl	Mongolic	Cyrillic	124412	508217	84535241
+Khmer	khm_Khmr	Austroasiatic	Kher	24495	122243	3043925
+Kinyarwanda	kin_Latn	Atlantic-Congo	Latin	30401	172201	12049616
+Kyrgyz	kir_Cyrl	Uralic	Cyrillic	53010	199713	34404281
+Northern Kurdish	kmr_Latn	Indo-European	Latin	39262	164666	23834960
+Korean	kor_Hang	Koreanic	Hanja	2614089	13563283	2006080705
+Lao	lao_Laoo	Kra-Dai	Lao	50611	208768	31029380
+Ligurian	lij_Latn	Indo-European	Latin	8751	56266	2958179
+Limburgish	lim_Latn	Indo-European	Latin	189547	1076047	42534327
+Lingala	lin_Latn	Atlantic-Congo	Latin	24614	152132	4053459
+Lithuanian	lit_Latn	Indo-European	Latin	1688811	8869443	1161476040
+Lombard	lmo_Latn	Indo-European	Latin	30506	151855	9058614
+Latgalian	ltg_Latn	Indo-European	Latin	11948	61624	4148492
+Luxembourgish	ltz_Latn	Indo-European	Latin	44987	246346	16676872
+Ganda	lug_Latn	Afro-Asiatic	Latin	1878	7215	789917
+Mizo	lus_Latn	Sino-Tibetan	Latin	7880	26817	4978472
+Standard Latvian	lvs_Latn	Indo-European	Latin	896243	4141648	587653855
+Magahi	mag_Deva	Indo-European	Devanagari	1097	3847	205763
+Malayalam	mal_Mlym	Dravidian	Malayalam	14140	52679	1689010
+Marathi	mar_Deva	Indo-European	Devanagari	50391	163868	6689250
+Minangkabau	min_Latn	Austronesian	Latin	9341	35309	1256931
+Macedonian	mkd_Cyrl	Indo-European	Cyrillic	542250	1853070	307232151
+Maltese	mlt_Latn	Afro-Asiatic	Latin	120888	709242	36097957
+Maori	mri_Latn	Austronesian	Latin	24322	130137	24957914
+Burmese	mya_Mymr	Sino-Tibetan	Mon	8144	44188	539527
+Dutch	nld_Latn	Indo-European	Latin	17096727	65606013	9670041731
+Norwegian Nynorsk	nno_Latn	Indo-European	Latin	199355	1012313	67799774
+Norwegian Bokmål	nob_Latn	Indo-European	Latin	2229702	9698128	1294178095
+Nepali	npi_Deva	Indo-European	Devanagari	31239	127193	3138539
+Nyanja	nya_Latn	Atlantic-Congo	Latin	12047	67192	8596769
+Occitan	oci_Latn	Indo-European	Latin	164852	671881	59309549
+Odia	ory_Orya	Indo-European	Odia	4319	15574	378635
+Pangasinan	pag_Latn	Austronesian	Latin	4214	32287	546071
+Eastern Panjabi	pan_Guru	Indo-European	Gurmukhi	11497	46168	1887991
+Papiamento	pap_Latn	Indo-European	Latin	55224	363015	10002655
+Southern Pasto	pbt_Arab	Indo-European	Arabic	32604	110807	29170322
+Western Persian	pes_Arab	Indo-European	Arabic	7048946	25200571	6210479015
+Plateau Malgasy	plt_Latn	Austronesian	Latin	32521	120673	29263848
+Polish	pol_Latn	Indo-European	Latin	14549605	60639244	11104144109
+Portuguese	por_Latn	Indo-European	Latin	8145664	26530423	4760063083
+Dari	prs_Arab	Indo-European	Arabic	515041	2589859	517053967
+Ayacucho Quechua	quy_Latn	Quechuan	Latin	1578	11817	362690
+Romanian	ron_Latn	Indo-European	Latin	5180171	17964048	3548291261
+Rundi	run_Latn	Atlantic-Congo	Latin	20001	67096	8686054
+Russian	rus_Cyrl	Indo-European	Cyrillic	15913845	69542828	18909213208
+Sango	sag_Latn	Atlantic-Congo	Latin	2124	13556	454455
+Sicilian	scn_Latn	Indo-European	Latin	73199	424362	27110743
+Sinhala	sin_Sinh	Indo-European	Sinhalese	58767	221183	14270972
+Slovak	slk_Latn	Indo-European	Latin	3008599	15067234	1963804563
+Slovenian	slv_Latn	Indo-European	Latin	1472025	7210285	935834754
+Samoan	smo_Latn	Austronesian	Latin	12346	71359	14954824
+Shona	sna_Latn	Atlantic-Congo	Latin	12698	68782	6112600
+Sindhi	snd_Arab	Indo-European	Arabic	21095	74289	17647825
+Somali	som_Latn	Afro-Asiatic	Latin	77343	301429	34554975
+Southern Sotho	sot_Latn	Atlantic-Congo	Latin	7718	43146	6156450
+Spanish	spa_Latn	Indo-European	Latin	22713366	78361087	14616773475
+Sardinian	srd_Latn	Indo-European	Latin	675539	4059493	106159957
+Serbian	srp_Cyrl	Indo-European	Cyrillic	604557	2286171	401223741
+Sundanese	sun_Latn	Austronesian	Latin	44310	236025	13627832
+Swedish	swe_Latn	Indo-European	Latin	3302730	10860518	1779284152
+Swahili	swh_Latn	Atlantic-Congo	Latin	137134	593418	59454896
+Silesian	szl_Latn	Indo-European	Latin	23535	132459	5996972
+Tamil	tam_Taml	Dravidian	Tamil	36196	167669	4834946
+Tatar	tat_Cyrl	Turkic	Cyrillic	37188	143842	22831350
+Telugu	tel_Telu	Dravidian	Telugu	22974	81033	2273772
+Tajik	tgk_Cyrl	Turkic	Cyrillic	125236	417591	90503778
+Tagalog	tgl_Latn	Austronesian	Latin	151437	673814	97708639
+Thai	tha_Thai	Kra-Dai	Thai	2983837	11621786	2839211104
+Tigrinya	tir_Ethi	Afro-Asiatic	Ge‘ez	2657	8707	1725422
+Tok Pisin	tpi_Latn	Indo-European	Latin	5063	35169	460853
+Turkmen	tuk_Latn	Turkic	Latin	13024	57354	9766999
+Turkish	tur_Latn	Turkic	Latin	4478700	12401091	2394669068
+Twi	twi_Latn	Atlantic-Congo	Latin	3305	13634	495220
+Uyghur	uig_Arab	Turkic	Arabic	10713	41709	6785318
+Ukrainian	ukr_Cyrl	Indo-European	Cyrillic	2721424	10929796	1928351595
+Urdu	urd_Arab	Indo-European	Arabic	407098	1239125	242007283
+Northern Uzbek	uzn_Latn	Turkic	Latin	156632	798155	89022562
+Venetian	vec_Latn	Indo-European	Latin	330611	1830777	71077531
+Vietnamese	vie_Latn	Viet-Muong	Latin	12621521	47411488	11616191199
+Wolof	wol_Latn	Atlantic-Congo	Latin	4658	20380	1596432
+Xhosa	xho_Latn	Atlantic-Congo	Latin	25950	142387	15809823
+Eastern Yiddish	ydd_Hebr	Indo-European	Hebrew	12486	57510	17369727
+Yoruba	yor_Latn	Atlantic-Congo	Latin	56700	286933	32614558
+Yue Chinese	yue_Hant	Sino-Tibetan	Hant	33671	203513	24172441
+Chinese (Simplified)	zho_Hans	Sino-Tibetan	Hanzi	9861262	36152754	8078842701
+Chinese (Traditional)	zho_Hant	Sino-Tibetan	Hant	3967966	16307258	2962854441
+Standard Malay	zsm_Latn	Austronesian	Latin	1179744	5488632	432667199
+Zulu	zul_Latn	Atlantic-Congo	Latin	30717	156639	11345288
