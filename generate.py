@@ -184,7 +184,7 @@ def main():
         template = env.get_template('ref_name.template')
         with open(fname, 'w') as f:
             try:
-                f.write(template.render(**v))
+                f.write(template.render(**v)+'\n')
             except Exception as e:
                 print('got exception {} processing {}, skipping'.format(str(e), d), file=sys.stderr)
                 print(traceback.format_exc())
@@ -213,7 +213,7 @@ def main():
             try:
                 f.write(template.render(
                     type_name=type_name, top=top, subdir=subdir, type_list_big=type_list_big, type_list=type_list
-                ))
+                )+'\n')
             except Exception as e:
                 print('got exception {} processing {}, skipping'.format(str(e), d), file=sys.stderr)
                 print(traceback.format_exc())
@@ -229,7 +229,7 @@ def main():
             try:
                 f.write(template.render(
                     type_name=type_name, top=top, subdir=subdir, type_list_big=type_list_big, type_list=type_list
-                ))
+                )+'\n')
             except Exception as e:
                 print('got exception {} processing {}, skipping'.format(str(e), d), file=sys.stderr)
                 print(traceback.format_exc())
