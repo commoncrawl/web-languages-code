@@ -50,7 +50,7 @@ env = Environment(
 
 
 language_type_map = {  # note the lower case
-    'A': 'ancient',
+    #'A': 'ancient',  # seems to have been deprecated a while ago
     'C': 'constructed',
     'E': 'extinct',
     'H': 'historical',
@@ -207,8 +207,8 @@ def main():
         template = env.get_template('type.template')
 
         fname = basedir.rstrip('/') + '/' + type_name + '/README.md'
-        subdir = ''
         top = False
+        subdir = type_name + '/'
         with open(fname, 'w') as f:
             try:
                 f.write(template.render(
@@ -223,8 +223,8 @@ def main():
 
         # top level README
         fname = basedir.rstrip('/') + '/' + '/README.md'
-        subdir = language_type_map[type_] + '/'
         top = True
+        subdir = type_name + '/'
         with open(fname, 'w') as f:
             try:
                 f.write(template.render(
