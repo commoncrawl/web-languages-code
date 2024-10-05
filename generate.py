@@ -64,7 +64,7 @@ extras = {
     'fas': {'Id': 'fas', 'Names': ['Farsi'], 'noedit': True, 'big': True, 'comment': 'See Iranian Persian, Dari, and Tajik'},
     'msa': {'Id': 'msa', 'Names': [],        'noedit': True, 'big': True, 'comment': 'See Indonesian, and 34 other languages with Malay in their name'},
     'zho': {'Id': 'zho', 'Names': [],        'noedit': True, 'big': True, 'comment': 'See Mandarin Chinese and the many other Chinese languages'},
-    'lah': {'Id': 'lah', 'Names': [],        'noedit': True, 'big': True, 'comment': 'See Western Panjabi and many others'},
+    'lah': {'Id': 'lah', 'Names': [],        'noedit': True, 'big': True, 'comment': 'Macrolanguage. See Western Panjabi and [the list here](https://en.wikipedia.org/wiki/Lahnda)'},
     # macro not big
     'pus': {'Id': 'pus', 'Names': ['Pashto'], 'noedit': True, 'comment': 'See Northern, Southern, and Central Pashto'},  # 40mm speakers
     # not macro, still no edit
@@ -75,6 +75,7 @@ extras = {
     'spa': {'Id': 'spa', 'Names': [], 'noedit': True, 'comment': 'We may eventually make a geographic breakdown'},
     'fra': {'Id': '', 'Names': [], 'noedit': True, 'comment': ''},
     # other
+    'pnb': {'Id': 'pnb', 'Names': ['Lahndi'], 'comment': 'See also [the list here](https://en.wikipedia.org/wiki/Lahnda)'},
     'por': {'Id': 'por', 'Names': [], 'comment': 'Includes Brazil, we may break that out later'},
     #'': {'Id': '', 'Names': [], 'noedit': True, 'comment': ''},
 }

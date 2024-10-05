@@ -1,7 +1,6 @@
-# Web Language {% if top -%} Project {% else -%}: {{ type_name | title }} {%- endif %}
+# Web Language {%- if top -%}s Project {%- else -%}: {{ type_name | title }} {%- endif %}
 
-{% if top %}
-
+{% if top -%}
 Welcome! This is a crowd-sourced effort to improve crawling
 of low-resource languages. This dataset is public.
 
