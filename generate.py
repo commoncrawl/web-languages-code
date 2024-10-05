@@ -218,6 +218,8 @@ def main():
             except Exception as e:
                 print('got exception {} processing {}, skipping'.format(str(e), d), file=sys.stderr)
                 print(traceback.format_exc())
+        if os.path.getsize(fname) > 500 * 1024:
+            raise ValueError(f'{fname} is too big for github to display')
 
         if type_ != 'L':
             continue
@@ -235,6 +237,8 @@ def main():
                 print('got exception {} processing {}, skipping'.format(str(e), d), file=sys.stderr)
                 print(traceback.format_exc())
 
+        if os.path.getsize(fname) > 500 * 1024:
+            raise ValueError(f'{fname} is too big for github to display')
 
 
 if __name__ == '__main__':

@@ -29,7 +29,7 @@ Github will request that you fork the repo. Do that, edit the
 document, and finally create a pull request.
 
 To see a partially completed example, look at the
-[Welsh](https://github.com/commoncrawl/web-languages/blob/main/living/welsh.md) entry.
+[Welsh](living/welsh.md) entry.
 
 Sometimes asking a Large Language Model can be helpful: "What are some
 top websites written in the Welsh language?"
@@ -87,7 +87,7 @@ If your favorite language is missing, please open an issue on Github.
   {%- if v.noedit -%}
 - {{ v.Ref_Name }} {%- if v.comment %}: {{ v.comment }} {%- endif -%}
   {%- else -%}
-- [{{ v.Ref_Name }}](https://github.com/commoncrawl/web-languages/blob/main/{{subdir}}{{v.fname}}) {%- if v.comment %} {{ v.comment }} {%- endif -%}
+- [{{ v.Ref_Name }}]({{subdir}}{{v.fname}}) {%- if v.comment %} {{ v.comment }} {%- endif -%}
   {%- endif %}
 {% endfor %}
 {% endif  %}
@@ -98,7 +98,7 @@ If your favorite language is missing, please open an issue on Github.
   {%- if v.noedit -%}
 - {{ v.Ref_Name }} {%- if v.comment %}: {{ v.comment }} {%- endif -%}
   {%- else -%}
-- [{{ v.Ref_Name }}](https://github.com/commoncrawl/web-languages/blob/main/{{subdir}}{{v.fname}}) {%- if v.comment %} {{ v.comment }} {%- endif -%}
+- [{{ v.Ref_Name }}]({{subdir}}{{v.fname}}) {%- if v.comment %} {{ v.comment }} {%- endif -%}
   {%- endif %}
 {% endfor %}
 
