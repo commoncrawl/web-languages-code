@@ -34,12 +34,16 @@ Informative links (in English):
 - 
 
 Additional Information:
+{% if Id -%}
 - ISO-639-3 code: {{Id}}
+- https://en.wikipedia.org/wiki/ISO_639:{{Id}}
+{% endif -%}
 {% if TLDs -%}
 {% for TLD in TLDs -%}
 - Internet TLD: {{TLD}}
-{% endfor -%}
+{%- endfor -%}
 {% endif %}
+
 Scripts:
 {% for Script in Scripts -%}
 - {{Script}}
