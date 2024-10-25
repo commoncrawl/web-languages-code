@@ -69,7 +69,6 @@ extras = {
     'pus': {'Id': 'pus', 'Names': ['Pashto'], 'noedit': True, 'comment': 'See Northern, Southern, and Central Pashto'},  # 40mm speakers
     # not macro, still no edit
     'eng': {'Id': '', 'Names': [], 'noedit': True, 'comment': ''},
-    'eng': {'Id': '', 'Names': [], 'noedit': True, 'comment': ''},
     'rus': {'Id': '', 'Names': [], 'noedit': True, 'comment': ''},
     'deu': {'Id': '', 'Names': [], 'noedit': True, 'comment': ''},
     'spa': {'Id': 'spa', 'Names': [], 'noedit': True, 'comment': 'We may eventually make a geographic breakdown'},
@@ -81,8 +80,16 @@ extras = {
 }
 
 
-
 basedir = '../web-languages'
+
+
+def add_names(entry, names):
+    Names = [entry['Ref_Name']] + entry.get('Extra_Names', [])
+    for name in names:
+        if not Names.count(name):
+            if 'Extra_Names' not in entry:
+                entry['Extra_Names'] = []
+            entry['Extra_Names'].append(name)
 
 
 def main():
@@ -99,14 +106,19 @@ def main():
 
     column_names = ['Id', 'Name', 'speakers']
     usecols = None
-    wikipedia_table = read_tsv_pa('wikipedia.tsv', column_names=column_names, usecols=usecols)
-    print('wikipedia rows', wikipedia_table.num_rows)
+    wikipedia_size_table = read_tsv_pa('wikipedia_size.tsv', column_names=column_names, usecols=usecols)
+    print('wikipedia_size rows', wikipedia_size_table.num_rows)
 
+    column_names = ['wiki_code', 'iso_code', 'iso_name', 'wiki_name', 'wiki_local_name']
+    usecols = None
+    wikipedia_languages_table = read_tsv_pa('wikipedia_languages_all.tsv', column_names=column_names, usecols=usecols)
+    print('wikipedia_language rows', wikipedia_languages_table.num_rows)
 
     # these are small so let's do it in python
     table_dicts = table.to_pylist()  # list of dictionaries
     mOSCAR_dicts = mOSCAR_table.to_pylist()
-    wikipedia_dicts = wikipedia_table.to_pylist()
+    wikipedia_size_dicts = wikipedia_size_table.to_pylist()
+    wikipedia_languages_dicts = wikipedia_languages_table.to_pylist()
 
     assert len(table_dicts) == len(set(x['Id'] for x in table_dicts)), 'check that ISO 639 Ids are unique'
     assert len(table_dicts) == len(set(x['Ref_Name'] for x in table_dicts)), 'check that ISO 639 Ref_Names are unique'
@@ -116,63 +128,80 @@ def main():
     for d in mOSCAR_dicts:
         d['Id'], d['scrpt'] = d['Code'].split('_')
 
+    # start the main table
     ids = {}
     for d in table_dicts:
         Id = d['Id']
         ids[Id] = d
 
-    # add in info from mOSCAR. note that mOSCAR does have 2 scripts for 1 of the Ids
+    # add in info from mOSCAR
     for d in mOSCAR_dicts:
         if d['Id'] == 'ajp':
-            # fixup (2023): ajp -> apc and the name is Levantine Arabic, no North or South
+            # special fixup (2023): ajp (South) -> apc (formerly North) and the ref_name is Levantine Arabic
+            # the ref_name for ajp is alreay set to Levantine Arabic at this point
+            # by NOT changing the 'Name', both North and South will be Extra_Names
             d['Id'] = 'apc'
-            d['Ref_Name'] = 'Levantine Arabic'
         Id = d['Id']
         if Id not in ids:
-            print(f'warning: mOSCAR Id {Id} not in table')
+            print(f'warning: mOSCAR Id {Id} not in table, skipping')
             continue
         entry = ids[Id]
-        for name in ('Extra_Names', 'Scripts'):
-            if name not in ids:
+        for name in ('Extra_Names', 'Scripts', 'scrpts'):
+            if name not in entry:
                 entry[name] = []
         if entry['Ref_Name'] != d['Name']:
             entry['Extra_Names'].append(d['Name'])
-        entry['Scripts'].append(d['Script'])
+
+        for name in ('Script', 'scrpt'):
+            entry[name+'s'].append(d[name])
+            if len(entry[name+'s']) > 1:
+                # zho really is 2; apc is 2 Arabics; eventually belarusian will have 2
+                entry[name+'s'] = list(set(entry[name+'s']))
         if 'mOSCAR_doc_count' not in entry:
             entry['mOSCAR_doc_count'] = 0
         entry['mOSCAR_doc_count'] += d['doc_count']
 
-    # wikipedia_table Id Name speakers -- these are all big
-    for d in wikipedia_dicts:
+    # wikipedia_size_table Id Name speakers -- these are all big
+    for d in wikipedia_size_dicts:
         Id = d['Id']
         if Id not in ids:
-            print(f'warning: wikipedia Id {Id} not in table')
+            print(f'warning: wikipedia_size Id {Id} not in table, skipping')
             continue
         entry = ids[Id]
         entry['big'] = True
-        Names = [entry['Ref_Name']] + entry.get('Extra_Names', [])
         if d['Name']:
-            if not Names.count(d['Name']):
-                if 'Extra_Names' not in entry:
-                    entry['Extra_Names'] = []
-                entry['Extra_Names'].append(d['Name'])
+            add_names(entry, [d['Name']])
+
+    # wikipedia_languages wiki_code and maybe names
+    # 'wiki_code', 'iso_code', 'iso_name', 'wiki_name', 'wiki_local_name'
+    for d in wikipedia_languages_dicts:
+        Id = d['iso_code']
+        if Id not in ids:
+            print(f'warning: wikipedia_languages Id {Id} not in table, skipping')
+            continue
+        entry = ids[Id]
+        entry['wiki_code'] = d['wiki_code'] # XXX only allows one. Belarusian has 2.
+        names = [x for x in [d['wiki_name'], d['wiki_local_name']] if x]
+        if names:
+            add_names(entry, names)
 
     # add in extras
-    for Id, v in extras.items():
+    for Id, d in extras.items():
         if Id not in ids:
-            # eventually we will use this to add new entries, but not yet
+            # eventually we will use this to add new entries, but not yet (e.g. Taiwanese)
             print(f'warning: extras Id {Id} not in table')
             continue
         entry = ids[Id]
-        Names = [entry['Ref_Name']] + entry.get('Extra_Names', [])
-        if d['Name']:
-            if not Names.count(d['Name']):
-                if 'Extra_Names' not in entry:
-                    entry['Extra_Names'] = []
-                entry['Extra_Names'].append(d['Name'])
+        if d['Names']:
+            add_names(entry, d['Names'])
         for field in ('noedit', 'big', 'comment'):
-            if field in v:
-                entry[field] = v[field]
+            if field in d:
+                entry[field] = d[field]
+
+    # zip the scripts
+    for k, v in ids.items():
+        if 'Scripts' in v:  # means scrpts should also be present
+            v['script_zip'] = zip(v['Scripts'], v['scrpts'])
 
     for type_ in types:
         os.makedirs(basedir.rstrip('/') + '/' + language_type_map[type_], exist_ok=True)

@@ -23,9 +23,9 @@ Political Parties:
 - 
 
 Other:
-{% for Wikipedia in Wikipedias -%}
-- {{ Wikipedia }}
-{% endfor -%}
+{% if wiki_code -%}
+- https://{{wiki_code}}.wikipedia.org
+{% endif -%}
 - 
 - 
 
@@ -45,8 +45,8 @@ Additional Information:
 {% endif %}
 
 Scripts:
-{% for Script in Scripts -%}
-- {{Script}}
+{% for Script, scrpt in script_zip -%}
+- <a href="https://en.wikipedia.org/wiki/ISO_15924">ISO 15924 {{scrpt}}</a> {{Script}}
 {% endfor -%}
 - 
 
