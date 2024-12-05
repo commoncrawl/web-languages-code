@@ -11,6 +11,7 @@ def normalize_filename(fname):
     '''turn a language name into a pleasant-looking filename'''
     fname = fname.lower().replace(' ', '_').replace('(', '_').replace(')', '_')
     fname = fname.replace("'", '_').replace('"', '_')
+    fname = re.sub(r'[^\w.-]', '_', fname)
     fname = re.sub(r'_+', '_', fname)
     return fname
 
@@ -95,6 +96,8 @@ def add_names(entry, names):
 def main():
     column_names = ['Id', 'Part2b', 'Part2t', 'Part1', 'Scope', 'Language_Type', 'Ref_Name', 'Comment']
     usecols = None  # list of str
+
+    # This file is not tracked, here is the source: https://iso639-3.sil.org/code_tables/download_tables
     table = read_tsv_pa('iso-639-3_Code_Tables_20240415/iso-639-3.tab', column_names=column_names, usecols=usecols)
     print('ISO-639-3 rows', table.num_rows)
     types = set(table['Language_Type'].to_pylist())
@@ -116,6 +119,10 @@ def main():
 
     # these are small so let's do it in python
     table_dicts = table.to_pylist()  # list of dictionaries
+
+    # Filter out 'ancient' language types (A), see †
+    table_dicts = [d for d in table_dicts if d['Language_Type'] != 'A']
+
     mOSCAR_dicts = mOSCAR_table.to_pylist()
     wikipedia_size_dicts = wikipedia_size_table.to_pylist()
     wikipedia_languages_dicts = wikipedia_languages_table.to_pylist()
@@ -204,6 +211,10 @@ def main():
             v['script_zip'] = zip(v['Scripts'], v['scrpts'])
 
     for type_ in types:
+        if type_ == 'A':
+            # † Filter out ancient languages
+            print(f'Skipping ancient language type: "{type_}"')
+            continue
         os.makedirs(basedir.rstrip('/') + '/' + language_type_map[type_], exist_ok=True)
 
     for k, v in ids.items():
@@ -220,6 +231,10 @@ def main():
                 print(traceback.format_exc())
 
     for type_ in types:
+        if type_ == 'A':
+            # † Filter out ancient languages
+            print(f'Skipping ancient language type: "{type_}"')
+            continue
         print('type_', type_)
         type_list_big = []
         type_list = []
