@@ -4,6 +4,8 @@ import markdown
 import os
 import re
 
+from urllib.parse import urlparse, urlunparse
+
 from bs4 import BeautifulSoup
 
 
@@ -22,6 +24,23 @@ def get_markdown_clean(path):
     # convert bare URLs into links
     md = re.sub(r' (https?://\S+)(?=\s|$)', r' <\1>', md)
     return md
+
+def normalize_url(url):
+    """Normalize URL: encode IDN host, replace empty path by `/`,
+    strip user and password from authority."""
+    if url.isascii() and re.match(r'^https?://[^/]+/', url):
+        return url
+    u = urlparse(url)
+    h = u.hostname
+    n = u.netloc
+    if not h.isascii():
+        n = h.encode('idna').decode('ascii')
+        if u.port:
+            n += ':' + u.port
+    p = u.path
+    if u.path == '':
+        p = '/'
+    return urlunparse((u.scheme, n, p, u.params, u.query, ''))
 
 
 web_languages_folders = [
@@ -58,7 +77,7 @@ for path in web_languages_files:
     print('### {} links from {}'.format(len(links), path))
     total_links += len(links)
     for link in links:
-        print(link)
+        print(normalize_url(link))
 
 
 logging.info('Extracted %d links from %d markdown files', total_links, len(web_languages_files))
