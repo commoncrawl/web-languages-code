@@ -1,0 +1,119 @@
+language,lang_wikidataurl,iso639_3,iso639_1,official_EU_language,countries,speakers,official_countries
+Afar,http://www.wikidata.org/entity/Q27811,aar,aa,False,Finland,1600000.0,
+Afrikaans,http://www.wikidata.org/entity/Q14196,afr,af,False,Finland,10300000.0,
+Akan,http://www.wikidata.org/entity/Q28026,aka,ak,False,Finland,11000000.0,
+Albanian,http://www.wikidata.org/entity/Q8748,sqi,sq,False,"Albania, Finland, Kosovo, North Macedonia, Slovenia",6200000.0,"Albania, Kosovo, North Macedonia"
+Amharic,http://www.wikidata.org/entity/Q28244,amh,am,False,Finland,21900000.0,
+Arabic,http://www.wikidata.org/entity/Q13955,ara,ar,False,Finland,315421300.0,
+Aragonese,http://www.wikidata.org/entity/Q8765,arg,an,False,Spain,8500.0,
+Assamese,http://www.wikidata.org/entity/Q29401,asm,as,False,Finland,15300000.0,
+Avar,http://www.wikidata.org/entity/Q29561,ava,av,False,Russia,766500.0,
+Bambara,http://www.wikidata.org/entity/Q33243,bam,bm,False,Finland,4200000.0,
+Bangla,http://www.wikidata.org/entity/Q9610,ben,bn,False,Finland,300000000.0,
+Bashkir,http://www.wikidata.org/entity/Q13389,bak,ba,False,Russia,1200000.0,
+Basque,http://www.wikidata.org/entity/Q8752,eus,eu,False,"France, Spain",750000.0,
+Belarusian,http://www.wikidata.org/entity/Q9091,bel,be,False,"Belarus, Finland",7600000.0,Belarus
+Bokmål,http://www.wikidata.org/entity/Q25167,nob,nb,False,Norway,4000000.0,Norway
+Bosnian,http://www.wikidata.org/entity/Q9303,bos,bs,False,"Bosnia and Herzegovina, Croatia, Finland, Montenegro, Slovenia",3500000.0,Bosnia and Herzegovina
+Breton,http://www.wikidata.org/entity/Q12107,bre,br,False,France,107000.0,
+Bulgarian,http://www.wikidata.org/entity/Q7918,bul,bg,True,"Bulgaria, Finland, Greece",9000000.0,Bulgaria
+Burmese,http://www.wikidata.org/entity/Q9228,mya,my,False,Finland,32900000.0,
+Catalan,http://www.wikidata.org/entity/Q7026,cat,ca,False,"Andorra, Finland, France, Spain",4873396.0,Andorra
+Chechen,http://www.wikidata.org/entity/Q33350,che,ce,False,Russia,1393900.0,
+Chinese,http://www.wikidata.org/entity/Q7850,zho,zh,False,Finland,1299877520.0,
+Church Slavonic,http://www.wikidata.org/entity/Q33251,chu,cu,False,Russia,,
+Chuvash,http://www.wikidata.org/entity/Q33348,chv,cv,False,Russia,738070.0,
+Cornish,http://www.wikidata.org/entity/Q25289,cor,kw,False,United Kingdom,600.0,
+Corsican,http://www.wikidata.org/entity/Q33111,cos,co,False,Italy,151000.0,
+Croatian,http://www.wikidata.org/entity/Q6654,hrv,hr,True,"Austria, Bosnia and Herzegovina, Croatia, Finland, Montenegro, Slovenia",7000000.0,"Bosnia and Herzegovina, Croatia"
+Czech,http://www.wikidata.org/entity/Q9056,ces,cs,True,"Czech Republic, Finland",10700000.0,Czech Republic
+Danish,http://www.wikidata.org/entity/Q9035,dan,da,True,"Denmark, Finland, Germany",6000000.0,Denmark
+Dutch,http://www.wikidata.org/entity/Q7411,nld,nl,True,"Belgium, Finland, Kingdom of the Netherlands",23100000.0,"Belgium, Kingdom of the Netherlands"
+English,http://www.wikidata.org/entity/Q1860,eng,en,True,"Finland, Ireland, Malta, United Kingdom",753359540.0,"Ireland, Malta, United Kingdom"
+Esperanto,http://www.wikidata.org/entity/Q143,epo,eo,False,Poland,2000000.0,
+Estonian,http://www.wikidata.org/entity/Q9072,est,et,True,"Estonia, Finland",1251770.0,Estonia
+Ewe,http://www.wikidata.org/entity/Q30005,ewe,ee,False,Finland,3000000.0,
+Faroese,http://www.wikidata.org/entity/Q25258,fao,fo,False,Finland,69150.0,
+Finnish,http://www.wikidata.org/entity/Q1412,fin,fi,True,"Finland, Russia, Sweden",5413380.0,Finland
+French,http://www.wikidata.org/entity/Q150,fra,fr,True,"Belgium, Finland, France, Italy, Luxembourg, Switzerland, Vatican City",208157220.0,"Belgium, France, Luxembourg, Switzerland, Vatican City"
+Galician,http://www.wikidata.org/entity/Q9307,glg,gl,False,"Portugal, Spain",2500000.0,
+German,http://www.wikidata.org/entity/Q188,deu,de,True,"Austria, Belgium, Czech Republic, Denmark, Finland, Germany, Italy, Liechtenstein, Luxembourg, Poland, Slovenia, Switzerland",76540740.0,"Austria, Belgium, Germany, Liechtenstein, Luxembourg, Switzerland"
+Gikuyu,http://www.wikidata.org/entity/Q33587,kik,ki,False,Finland,6623000.0,
+Greenlandic,http://www.wikidata.org/entity/Q25355,kal,kl,False,Denmark,56200.0,
+Hausa,http://www.wikidata.org/entity/Q56475,hau,ha,False,Finland,43900000.0,
+Hindi,http://www.wikidata.org/entity/Q1568,hin,hi,False,Finland,341000000.0,
+Hungarian,http://www.wikidata.org/entity/Q9067,hun,hu,True,"Austria, Finland, Hungary, Romania, Slovakia, Slovenia",12600000.0,Hungary
+Icelandic,http://www.wikidata.org/entity/Q294,isl,is,False,"Finland, Iceland",321040.0,Iceland
+Ido,http://www.wikidata.org/entity/Q35224,ido,io,False,Finland,150.0,
+Igbo,http://www.wikidata.org/entity/Q33578,ibo,ig,False,Finland,27000000.0,
+Irish,http://www.wikidata.org/entity/Q9142,gle,ga,True,"Finland, Ireland, United Kingdom",141000.0,Ireland
+Italian,http://www.wikidata.org/entity/Q652,ita,it,True,"Croatia, Finland, Italy, Slovenia, Switzerland, Vatican City",64800000.0,"Italy, Switzerland, Vatican City"
+Japanese,http://www.wikidata.org/entity/Q5287,jpn,ja,False,Finland,128000000.0,
+Kannada,http://www.wikidata.org/entity/Q33673,kan,kn,False,Finland,43600000.0,
+Kashmiri,http://www.wikidata.org/entity/Q33552,kas,ks,False,Finland,6900000.0,
+Kazakh,http://www.wikidata.org/entity/Q9252,kaz,kk,False,Finland,12900000.0,
+Kinyarwanda,http://www.wikidata.org/entity/Q33573,kin,rw,False,Finland,12100000.0,
+Komi,http://www.wikidata.org/entity/Q36126,kom,kv,False,Russia,219100.0,
+Korean,http://www.wikidata.org/entity/Q9176,kor,ko,False,Finland,77300000.0,
+Kurdish,http://www.wikidata.org/entity/Q36368,kur,ku,False,Finland,21000000.0,
+Kyrgyz,http://www.wikidata.org/entity/Q9255,kir,ky,False,Finland,4568480.0,
+Lao,http://www.wikidata.org/entity/Q9211,lao,lo,False,Finland,5225552.0,
+Latin,http://www.wikidata.org/entity/Q397,lat,la,False,Vatican City,,Vatican City
+Latvian,http://www.wikidata.org/entity/Q9078,lav,lv,True,"Finland, Latvia",1500000.0,Latvia
+Limburgish,http://www.wikidata.org/entity/Q102172,lim,li,False,"Belgium, Kingdom of the Netherlands",1600000.0,
+Lingala,http://www.wikidata.org/entity/Q36217,lin,ln,False,Finland,20000000.0,
+Lithuanian,http://www.wikidata.org/entity/Q9083,lit,lt,True,"Finland, Lithuania, Poland",4000000.0,Lithuania
+Luxembourgish,http://www.wikidata.org/entity/Q9051,ltz,lb,False,"Belgium, Germany, Luxembourg",391200.0,Luxembourg
+Macedonian,http://www.wikidata.org/entity/Q9296,mkd,mk,False,"Finland, Greece, North Macedonia, Slovenia",2000000.0,North Macedonia
+Malayalam,http://www.wikidata.org/entity/Q36236,mal,ml,False,Finland,37100000.0,
+Maltese,http://www.wikidata.org/entity/Q9166,mlt,mt,True,"Finland, Malta",570000.0,Malta
+Marathi,http://www.wikidata.org/entity/Q1571,mar,mr,False,Finland,83100000.0,
+Modern Greek,http://www.wikidata.org/entity/Q36510,ell,el,False,"Albania, Cyprus, Greece",15000000.0,"Cyprus, Greece"
+Mongolian,http://www.wikidata.org/entity/Q9246,mon,mn,False,Finland,5200000.0,
+Nepali,http://www.wikidata.org/entity/Q33823,nep,ne,False,Finland,15800000.0,
+Northern Sami,http://www.wikidata.org/entity/Q33947,sme,se,False,"Finland, Norway, Sweden",25700.0,
+Norwegian,http://www.wikidata.org/entity/Q9043,nor,no,False,"Finland, Norway",5200000.0,Norway
+Nynorsk,http://www.wikidata.org/entity/Q25164,nno,nn,False,Norway,,Norway
+Occitan,http://www.wikidata.org/entity/Q14185,oci,oc,False,"France, Italy, Spain",542000.0,
+Odia,http://www.wikidata.org/entity/Q33810,ory,or,False,Finland,34500000.0,
+Ossetian,http://www.wikidata.org/entity/Q33968,oss,os,False,"Finland, Russia",599250.0,
+Pashto,http://www.wikidata.org/entity/Q58680,pus,ps,False,Finland,39000000.0,
+Persian,http://www.wikidata.org/entity/Q9168,fas,fa,False,Finland,45000000.0,
+Polish,http://www.wikidata.org/entity/Q809,pol,pl,True,"Czech Republic, Finland, Poland, Slovakia",39700000.0,Poland
+Portuguese,http://www.wikidata.org/entity/Q5146,por,pt,True,"Finland, Portugal, Spain",254300000.0,Portugal
+Punjabi,http://www.wikidata.org/entity/Q58635,pan,pa,False,Finland,125000000.0,
+Romanian,http://www.wikidata.org/entity/Q7913,ron,ro,True,"Finland, Romania",24300000.0,Romania
+Romansh,http://www.wikidata.org/entity/Q13199,roh,rm,False,Switzerland,40039.0,Switzerland
+Russian,http://www.wikidata.org/entity/Q7737,rus,ru,False,"Belarus, Estonia, Finland, Latvia, Lithuania, Russia",154000000.0,"Belarus, Russia"
+Sardinian,http://www.wikidata.org/entity/Q33976,srd,sc,False,Italy,1300000.0,
+Scottish Gaelic,http://www.wikidata.org/entity/Q9314,gla,gd,False,United Kingdom,60130.0,
+Serbian,http://www.wikidata.org/entity/Q9299,srp,sr,False,"Bosnia and Herzegovina, Croatia, Finland, Kosovo, Montenegro, North Macedonia, Slovenia",9000000.0,"Bosnia and Herzegovina, Kosovo"
+Serbo-Croatian,http://www.wikidata.org/entity/Q9301,hbs,sh,False,Finland,19000000.0,
+Sindhi,http://www.wikidata.org/entity/Q33997,snd,sd,False,Finland,24600000.0,
+Slovak,http://www.wikidata.org/entity/Q9058,slk,sk,True,"Finland, Hungary, Slovakia",6000000.0,Slovakia
+Slovene,http://www.wikidata.org/entity/Q9063,slv,sl,True,"Austria, Finland, Hungary, Italy, Slovenia",2400000.0,Slovenia
+Somali,http://www.wikidata.org/entity/Q13275,som,so,False,Finland,16200000.0,
+Spanish,http://www.wikidata.org/entity/Q1321,spa,es,True,"Finland, Spain",485000000.0,Spain
+Sundanese,http://www.wikidata.org/entity/Q34002,sun,su,False,Finland,32400000.0,
+Swahili,http://www.wikidata.org/entity/Q7838,swa,sw,False,Finland,15437390.0,
+Swedish,http://www.wikidata.org/entity/Q9027,swe,sv,True,"Finland, Sweden",9244250.0,"Finland, Sweden"
+Tajik,http://www.wikidata.org/entity/Q9260,tgk,tg,False,Finland,14000000.0,
+Tamil,http://www.wikidata.org/entity/Q5885,tam,ta,False,Finland,75000000.0,
+Tatar,http://www.wikidata.org/entity/Q25285,tat,tt,False,"Finland, Russia",5200000.0,
+Telugu,http://www.wikidata.org/entity/Q8097,tel,te,False,Finland,82000000.0,
+Thai,http://www.wikidata.org/entity/Q9217,tha,th,False,Finland,20700000.0,
+Tigrinya,http://www.wikidata.org/entity/Q34124,tir,ti,False,Finland,7507780.0,
+Turkish,http://www.wikidata.org/entity/Q256,tur,tr,False,"Bulgaria, Cyprus, Finland, Greece",82231620.0,Cyprus
+Turkmen,http://www.wikidata.org/entity/Q9267,tuk,tk,False,Finland,16000000.0,
+Twi,http://www.wikidata.org/entity/Q36850,twi,tw,False,Finland,3000000.0,
+Ukrainian,http://www.wikidata.org/entity/Q8798,ukr,uk,False,"Finland, Romania, Slovakia",26900000.0,
+Urdu,http://www.wikidata.org/entity/Q1617,urd,ur,False,Finland,68600000.0,
+Uzbek,http://www.wikidata.org/entity/Q9264,uzb,uz,False,Finland,27000000.0,
+Vietnamese,http://www.wikidata.org/entity/Q9199,vie,vi,False,Finland,76000000.0,
+Walloon,http://www.wikidata.org/entity/Q34219,wln,wa,False,Belgium,600000.0,
+Welsh,http://www.wikidata.org/entity/Q9309,cym,cy,False,United Kingdom,724000.0,
+West Frisian,http://www.wikidata.org/entity/Q27175,fry,fy,False,Kingdom of the Netherlands,845100.0,
+Wolof,http://www.wikidata.org/entity/Q34257,wol,wo,False,Finland,3700000.0,
+Yiddish,http://www.wikidata.org/entity/Q8641,yid,yi,False,"Belgium, Sweden",1000000.0,
+Yoruba,http://www.wikidata.org/entity/Q34311,yor,yo,False,Finland,37800000.0,
+Zulu,http://www.wikidata.org/entity/Q10179,zul,zu,False,Finland,12100000.0,
