@@ -208,7 +208,7 @@ def main():
 
     for k, v in ids.items():
         fname = normalize_filename(v['Ref_Name']) + '.md'
-        v['fname'] = fname
+        v['fname'] = normalize_filename(v['Ref_Name']) + '.md'
         fname = basedir.rstrip('/') + '/' + language_type_map[v['Language_Type']] + '/' + fname
 
         template = env.get_template('ref_name.template')
@@ -238,7 +238,7 @@ def main():
 
         fname = basedir.rstrip('/') + '/' + type_name + '/README.md'
         top = False
-        subdir = type_name + '/'
+        subdir = ''
         with open(fname, 'w') as f:
             try:
                 f.write(template.render(
@@ -256,7 +256,7 @@ def main():
         # top level README
         fname = basedir.rstrip('/') + '/' + '/README.md'
         top = True
-        subdir = type_name + '/'
+        subdir = ''
         with open(fname, 'w') as f:
             try:
                 f.write(template.render(
