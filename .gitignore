@@ -1,1 +1,6 @@
 __pycache__
+# Ignore the extracted ISO 639-3 code tables directory and its zip archive.
+# These files are likely large data resources not needed in version control.
+iso-639-3_Code_Tables_20240415/
+iso-639-3_Code_Tables_20240415.zip
+
