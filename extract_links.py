@@ -17,6 +17,7 @@ import sys
 import markdown
 import os
 import re
+from collections import defaultdict
 
 from urllib.parse import urlparse, urlunparse
 
@@ -98,6 +99,7 @@ logging.info('Extracting links from %d markdown files', len(web_languages_files)
 
 total_links = 0
 total_excluded = 0
+live = defaultdict(int)
 
 for path in web_languages_files:
     md = get_markdown_clean(path)
@@ -123,9 +125,12 @@ for path in web_languages_files:
             print('##-', link)
         else:
             print(link)
+            live[path] += 1
 
 
 logging.info('Found %d links in %d markdown files.',
              total_links + total_excluded, len(web_languages_files))
 logging.info('Accepted %d links, %d excluded by pattern.',
              total_links, total_excluded)
+logging.info('%d languages have non-excluded links',
+             len(live))
