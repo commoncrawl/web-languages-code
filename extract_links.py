@@ -98,8 +98,18 @@ def normalize_url(url):
     if not u.scheme.startswith("http"):
         return None
     # Rebuild the authority from the host alone, dropping any
-    # `user:password@` credentials. IDN-encode non-ASCII hosts.
-    n = h.encode('idna').decode('ascii') if not h.isascii() else h
+    # `user:password@` credentials. IDN-encode non-ASCII hosts. The stock
+    # `idna` codec is strict — empty labels, labels over 63 chars, a trailing
+    # dot or underscores can raise UnicodeError — so treat an un-encodable
+    # host as unparseable (return None) rather than letting it crash the whole
+    # extraction, since normalize_url runs outside the loop's try/except.
+    if h.isascii():
+        n = h
+    else:
+        try:
+            n = h.encode('idna').decode('ascii')
+        except UnicodeError:
+            return None
     if u.port:
         # u.port is an int; cast before concatenating onto the host.
         n += ':' + str(u.port)
