@@ -73,22 +73,25 @@ def normalize_url(url):
     h = u.hostname
     n = u.netloc
     if not h:
-        # Empty authority. Only repair *absolute* URLs: a malformed
-        # `https:///bla.bla.com` carries a scheme and lost its host to the
-        # path, so we can recover it. A relative URL (no scheme, e.g.
-        # `/path/page.html` or `about.html`) has no host to recover and is
-        # not crawlable on its own, so drop it instead of fabricating a bogus
-        # host from its first path segment.
-        if u.scheme not in ('http', 'https'):
+        # Empty authority. Only repair the one specific malformed shape
+        # `http(s):///host...`, where an extra slash pushed the host into
+        # the path. We match that literal prefix rather than just checking
+        # the scheme: `http:foo/bar` and `mailto:me@x` also parse to an
+        # empty authority, but promoting their first path segment to a host
+        # (`http://foo/bar`, `mailto://me@x`) would fabricate a bogus URL.
+        # Relative URLs (`/path`, `about.html`) have no host either. Drop
+        # all of those.
+        if not re.match(r'(?i)^https?:///', url):
             return None
-        # Try to recover the host from the path, then re-normalize. The
-        # repaired URL has a real host, so it can't re-enter this branch.
+        # Recover the host from the path, then re-normalize. The repaired
+        # URL has a real host, so it can't re-enter this branch.
         repaired = repair_empty_authority(u)
         return normalize_url(repaired) if repaired else None
     if not h.isascii():
         n = h.encode('idna').decode('ascii')
         if u.port:
-            n += ':' + u.port
+            # u.port is an int; cast before concatenating onto the host.
+            n += ':' + str(u.port)
     p = u.path
     if u.path == '':
         p = '/'
