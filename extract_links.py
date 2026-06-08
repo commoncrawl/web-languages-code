@@ -43,6 +43,21 @@ def get_markdown_clean(path):
     md = re.sub(r' (https?://\S+)(?=\s|$)', r' <\1>', md)
     return md
 
+def repair_empty_authority(u):
+    """Repair a URL whose authority is empty (e.g. `https:///bla.bla.com`),
+    where the host ended up in the path because of one slash too many.
+    Promote the first non-empty path segment to be the host and rebuild
+    the URL. Return a repaired URL string, or None if nothing can be
+    recovered (e.g. `https:///` has no path segment to promote).
+
+    `u` is the urllib.parse.ParseResult of the malformed URL.
+    """
+    host, _, rest = u.path.lstrip('/').partition('/')
+    if not host:
+        return None
+    return urlunparse((u.scheme, host, '/' + rest, u.params, u.query, u.fragment))
+
+
 def normalize_url(url):
     """Normalize URL: encode IDN host, replace empty path by `/`,
     strip user and password from authority."""
@@ -51,6 +66,12 @@ def normalize_url(url):
     u = urlparse(url)
     h = u.hostname
     n = u.netloc
+    if not h:
+       # Malformed URL with an empty authority, e.g. `https:///bla.bla.com`.
+       # Try to recover the host from the path, then re-normalize. The
+       # repaired URL has a real host, so it can't re-enter this branch.
+       repaired = repair_empty_authority(u)
+       return normalize_url(repaired) if repaired else None
     if not h.isascii():
         n = h.encode('idna').decode('ascii')
         if u.port:
@@ -110,10 +131,19 @@ for path in web_languages_files:
     except Exception as e:
         logging.error('Error in converted HTML from <%s>: %s', path, e)
         continue
-    links = list(map(normalize_url,
-                     [link['href'] for link in soup.find_all('a', href=True)]))
+    links = []
+    links_not_parseable = []
+    for link in soup.find_all('a', href=True):
+       normalized = normalize_url(link['href'])
+       if normalized:
+           links.append(normalized)
+       else:
+           # print(f"##- {link} cannot be normalized. Skipping it!")
+           links_not_parseable.append(link)
+
     links_exclusions = list(map(lambda l: exclusion_pattern.search(l), links))
     n_excluded = len(list(filter(lambda e: e, links_exclusions)))
+    n_excluded += len(links_not_parseable)
     print('### {} links from {}{}'.format(
         len(links) - n_excluded, path,
         ' (excluded: {} out of {})'.format(n_excluded, len(links))
