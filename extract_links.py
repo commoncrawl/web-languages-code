@@ -35,13 +35,15 @@ def get_markdown_clean(path):
     md = open(path, encoding='utf-8').read()
     # strip trailing instructions and supportive information
     md = re.sub(
-        r'^(?:## Instructions|Informative links \(in English\)|Additional Information|Scripts|Thank you to these people who have helped create this document):.*',
-        '', md, flags=re.DOTALL|re.MULTILINE)
+        r'^(?:## Instructions|Informative links \(in English\)|Additional Information'
+        r'|Scripts|Thank you to these people who have helped create this document):.*',
+        '', md, flags=re.DOTALL | re.MULTILINE)
     # fix lists
     md = re.sub(r'^- ', '\n* ', md)
     # convert bare URLs into links
     md = re.sub(r' (https?://\S+)(?=\s|$)', r' <\1>', md)
     return md
+
 
 def repair_empty_authority(u):
     """Repair a URL whose authority is empty (e.g. `https:///bla.bla.com`),
@@ -60,25 +62,30 @@ def repair_empty_authority(u):
 
 def normalize_url(url):
     """Normalize URL: encode IDN host, replace empty path by `/`,
-    strip user and password from authority."""
+    strip user and password from authority.
+
+    Return the normalized URL string, or `None` when there is no crawlable
+    host to normalize: relative URLs (e.g. `/path/page.html`, `about.html`),
+    non-http(s) schemes (e.g. `mailto:`), and empty-authority inputs from
+    which no host can be recovered."""
     if url.isascii() and re.match(r'^https?://[^/]+/', url):
         return url
     u = urlparse(url)
     h = u.hostname
     n = u.netloc
     if not h:
-       # Empty authority. Only repair *absolute* URLs: a malformed
-       # `https:///bla.bla.com` carries a scheme and lost its host to the
-       # path, so we can recover it. A relative URL (no scheme, e.g.
-       # `/path/page.html` or `about.html`) has no host to recover and is
-       # not crawlable on its own, so drop it instead of fabricating a bogus
-       # host from its first path segment.
-       if u.scheme not in ('http', 'https'):
-           return None
-       # Try to recover the host from the path, then re-normalize. The
-       # repaired URL has a real host, so it can't re-enter this branch.
-       repaired = repair_empty_authority(u)
-       return normalize_url(repaired) if repaired else None
+        # Empty authority. Only repair *absolute* URLs: a malformed
+        # `https:///bla.bla.com` carries a scheme and lost its host to the
+        # path, so we can recover it. A relative URL (no scheme, e.g.
+        # `/path/page.html` or `about.html`) has no host to recover and is
+        # not crawlable on its own, so drop it instead of fabricating a bogus
+        # host from its first path segment.
+        if u.scheme not in ('http', 'https'):
+            return None
+        # Try to recover the host from the path, then re-normalize. The
+        # repaired URL has a real host, so it can't re-enter this branch.
+        repaired = repair_empty_authority(u)
+        return normalize_url(repaired) if repaired else None
     if not h.isascii():
         n = h.encode('idna').decode('ascii')
         if u.port:
@@ -142,14 +149,14 @@ for path in web_languages_files:
     links = []
     links_not_parseable = []
     for link in soup.find_all('a', href=True):
-       normalized = normalize_url(link['href'])
-       if normalized:
-           links.append(normalized)
-       else:
-           # print(f"##- {link} cannot be normalized. Skipping it!")
-           links_not_parseable.append(link)
+        normalized = normalize_url(link['href'])
+        if normalized:
+            links.append(normalized)
+        else:
+            # No crawlable host (relative, mailto:, unrecoverable). Drop it.
+            links_not_parseable.append(link['href'])
 
-    links_exclusions = list(map(lambda l: exclusion_pattern.search(l), links))
+    links_exclusions = list(map(lambda link: exclusion_pattern.search(link), links))
     # Three disjoint buckets, all derived from the same total extracted count.
     n_pattern_excluded = len(list(filter(lambda e: e, links_exclusions)))
     n_unparseable = len(links_not_parseable)
