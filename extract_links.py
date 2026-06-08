@@ -67,7 +67,14 @@ def normalize_url(url):
     h = u.hostname
     n = u.netloc
     if not h:
-       # Malformed URL with an empty authority, e.g. `https:///bla.bla.com`.
+       # Empty authority. Only repair *absolute* URLs: a malformed
+       # `https:///bla.bla.com` carries a scheme and lost its host to the
+       # path, so we can recover it. A relative URL (no scheme, e.g.
+       # `/path/page.html` or `about.html`) has no host to recover and is
+       # not crawlable on its own, so drop it instead of fabricating a bogus
+       # host from its first path segment.
+       if u.scheme not in ('http', 'https'):
+           return None
        # Try to recover the host from the path, then re-normalize. The
        # repaired URL has a real host, so it can't re-enter this branch.
        repaired = repair_empty_authority(u)
@@ -118,8 +125,9 @@ if args.exclude:
 logging.info('Extracting links from %d markdown files', len(web_languages_files))
 
 
-total_links = 0
-total_excluded = 0
+total_accepted = 0
+total_pattern_excluded = 0
+total_unparseable = 0
 live = defaultdict(int)
 
 for path in web_languages_files:
@@ -142,14 +150,21 @@ for path in web_languages_files:
            links_not_parseable.append(link)
 
     links_exclusions = list(map(lambda l: exclusion_pattern.search(l), links))
-    n_excluded = len(list(filter(lambda e: e, links_exclusions)))
-    n_excluded += len(links_not_parseable)
+    # Three disjoint buckets, all derived from the same total extracted count.
+    n_pattern_excluded = len(list(filter(lambda e: e, links_exclusions)))
+    n_unparseable = len(links_not_parseable)
+    n_accepted = len(links) - n_pattern_excluded
+    # Total links extracted from this file: parseable + unparseable. The
+    # parseable ones split into accepted and pattern-excluded.
+    n_total = len(links) + n_unparseable
+    n_excluded = n_pattern_excluded + n_unparseable
     print('### {} links from {}{}'.format(
-        len(links) - n_excluded, path,
-        ' (excluded: {} out of {})'.format(n_excluded, len(links))
+        n_accepted, path,
+        ' (excluded: {} out of {})'.format(n_excluded, n_total)
         if n_excluded else ''))
-    total_links += len(links) - n_excluded
-    total_excluded += n_excluded
+    total_accepted += n_accepted
+    total_pattern_excluded += n_pattern_excluded
+    total_unparseable += n_unparseable
     for link, excluded in zip(links, links_exclusions):
         if excluded:
             print('##-', link)
@@ -159,8 +174,9 @@ for path in web_languages_files:
 
 
 logging.info('Found %d links in %d markdown files.',
-             total_links + total_excluded, len(web_languages_files))
-logging.info('Accepted %d links, %d excluded by pattern.',
-             total_links, total_excluded)
+             total_accepted + total_pattern_excluded + total_unparseable,
+             len(web_languages_files))
+logging.info('Accepted %d links, %d excluded by pattern, %d unparseable.',
+             total_accepted, total_pattern_excluded, total_unparseable)
 logging.info('%d languages have non-excluded links',
              len(live))
