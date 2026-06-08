@@ -35,8 +35,7 @@ def get_markdown_clean(path):
     md = open(path, encoding='utf-8').read()
     # strip trailing instructions and supportive information
     md = re.sub(
-        r'^(?:## Instructions|Informative links \(in English\)|Additional Information'
-        r'|Scripts|Thank you to these people who have helped create this document):.*',
+        r'^(?:## Instructions|Informative links \(in English\)|Additional Information|Scripts|Thank you to these people who have helped create this document):.*',
         '', md, flags=re.DOTALL | re.MULTILINE)
     # fix lists
     md = re.sub(r'^- ', '\n* ', md)
