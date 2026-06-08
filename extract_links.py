@@ -53,7 +53,7 @@ def repair_empty_authority(u):
 
     `u` is the urllib.parse.ParseResult of the malformed URL.
     """
-    if not u.startswith("http"):
+    if not u.scheme.startswith("http"):
         return None
     host, _, rest = u.path.lstrip('/').partition('/')
     if not host:
@@ -160,13 +160,13 @@ for path in web_languages_files:
     links = []
     links_not_parseable = []
     for link in soup.find_all('a', href=True):
-        link_str = link['href'] if 'href' in link else None
-        normalized = normalize_url(link_str)
+        link_str = link.get('href')
+        normalized = normalize_url(link_str) if link_str else None
         if normalized:
             links.append(normalized)
         else:
             # No crawlable host (relative, mailto:, unrecoverable). Drop it.
-            links_not_parseable.append(link['href'])
+            links_not_parseable.append(link_str)
 
     # With exclusions disabled (`--exclude ''`), exclusion_pattern is None,
     # so nothing is excluded.
