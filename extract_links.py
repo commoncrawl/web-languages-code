@@ -53,6 +53,8 @@ def repair_empty_authority(u):
 
     `u` is the urllib.parse.ParseResult of the malformed URL.
     """
+    if not u.startswith("http"):
+        return None
     host, _, rest = u.path.lstrip('/').partition('/')
     if not host:
         return None
@@ -67,11 +69,14 @@ def normalize_url(url):
     host to normalize: relative URLs (e.g. `/path/page.html`, `about.html`),
     non-http(s) schemes (e.g. `mailto:`), and empty-authority inputs from
     which no host can be recovered."""
-    if url.isascii() and re.match(r'^https?://[^/]+/', url):
+
+    # Fast path for already-clean http(s) URLs. `[^/@]+` forbids an `@`,
+    # so URLs carrying `user:password@` credentials fall through to the slow
+    # path below, where the authority is rebuilt from the host alone.
+    if url.isascii() and re.match(r'^https?://[^/@]+/', url):
         return url
     u = urlparse(url)
     h = u.hostname
-    n = u.netloc
     if not h:
         # Empty authority. Only repair the one specific malformed shape
         # `http(s):///host...`, where an extra slash pushed the host into
@@ -87,14 +92,18 @@ def normalize_url(url):
         # URL has a real host, so it can't re-enter this branch.
         repaired = repair_empty_authority(u)
         return normalize_url(repaired) if repaired else None
-    if not h.isascii():
-        n = h.encode('idna').decode('ascii')
-        if u.port:
-            # u.port is an int; cast before concatenating onto the host.
-            n += ':' + str(u.port)
-    p = u.path
-    if u.path == '':
-        p = '/'
+    # Only http(s) URLs are crawlable web links; drop any other scheme
+    # (e.g. `ftp:`, or a scheme-less protocol-relative `//host/...`) even
+    # when it carries a host.
+    if not u.scheme.startswith("http"):
+        return None
+    # Rebuild the authority from the host alone, dropping any
+    # `user:password@` credentials. IDN-encode non-ASCII hosts.
+    n = h.encode('idna').decode('ascii') if not h.isascii() else h
+    if u.port:
+        # u.port is an int; cast before concatenating onto the host.
+        n += ':' + str(u.port)
+    p = u.path or '/'
     return urlunparse((u.scheme, n, p, u.params, u.query, ''))
 
 
@@ -151,16 +160,22 @@ for path in web_languages_files:
     links = []
     links_not_parseable = []
     for link in soup.find_all('a', href=True):
-        normalized = normalize_url(link['href'])
+        link_str = link['href'] if 'href' in link else None
+        normalized = normalize_url(link_str)
         if normalized:
             links.append(normalized)
         else:
             # No crawlable host (relative, mailto:, unrecoverable). Drop it.
             links_not_parseable.append(link['href'])
 
-    links_exclusions = list(map(lambda link: exclusion_pattern.search(link), links))
+    # With exclusions disabled (`--exclude ''`), exclusion_pattern is None,
+    # so nothing is excluded.
+    if exclusion_pattern:
+        links_exclusions = [exclusion_pattern.search(link) for link in links]
+    else:
+        links_exclusions = [None] * len(links)
     # Three disjoint buckets, all derived from the same total extracted count.
-    n_pattern_excluded = len(list(filter(lambda e: e, links_exclusions)))
+    n_pattern_excluded = len(list(filter(lambda e_: e_, links_exclusions)))
     n_unparseable = len(links_not_parseable)
     n_accepted = len(links) - n_pattern_excluded
     # Total links extracted from this file: parseable + unparseable. The
