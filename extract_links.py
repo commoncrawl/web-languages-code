@@ -36,28 +36,84 @@ def get_markdown_clean(path):
     # strip trailing instructions and supportive information
     md = re.sub(
         r'^(?:## Instructions|Informative links \(in English\)|Additional Information|Scripts|Thank you to these people who have helped create this document):.*',
-        '', md, flags=re.DOTALL|re.MULTILINE)
+        '', md, flags=re.DOTALL | re.MULTILINE)
     # fix lists
     md = re.sub(r'^- ', '\n* ', md)
     # convert bare URLs into links
     md = re.sub(r' (https?://\S+)(?=\s|$)', r' <\1>', md)
     return md
 
+
+def repair_empty_authority(u):
+    """Repair a URL whose authority is empty (e.g. `https:///bla.bla.com`),
+    where the host ended up in the path because of one slash too many.
+    Promote the first non-empty path segment to be the host and rebuild
+    the URL. Return a repaired URL string, or None if nothing can be
+    recovered (e.g. `https:///` has no path segment to promote).
+
+    `u` is the urllib.parse.ParseResult of the malformed URL.
+    """
+    if not u.scheme.startswith("http"):
+        return None
+    host, _, rest = u.path.lstrip('/').partition('/')
+    if not host:
+        return None
+    return urlunparse((u.scheme, host, '/' + rest, u.params, u.query, u.fragment))
+
+
 def normalize_url(url):
     """Normalize URL: encode IDN host, replace empty path by `/`,
-    strip user and password from authority."""
-    if url.isascii() and re.match(r'^https?://[^/]+/', url):
+    strip user and password from authority.
+
+    Return the normalized URL string, or `None` when there is no crawlable
+    host to normalize: relative URLs (e.g. `/path/page.html`, `about.html`),
+    non-http(s) schemes (e.g. `mailto:`), and empty-authority inputs from
+    which no host can be recovered."""
+
+    # Fast path for already-clean http(s) URLs. `[^/@]+` forbids an `@`,
+    # so URLs carrying `user:password@` credentials fall through to the slow
+    # path below, where the authority is rebuilt from the host alone.
+    if url.isascii() and re.match(r'^https?://[^/@]+/', url):
         return url
     u = urlparse(url)
     h = u.hostname
-    n = u.netloc
-    if not h.isascii():
-        n = h.encode('idna').decode('ascii')
-        if u.port:
-            n += ':' + u.port
-    p = u.path
-    if u.path == '':
-        p = '/'
+    if not h:
+        # Empty authority. Only repair the one specific malformed shape
+        # `http(s):///host...`, where an extra slash pushed the host into
+        # the path. We match that literal prefix rather than just checking
+        # the scheme: `http:foo/bar` and `mailto:me@x` also parse to an
+        # empty authority, but promoting their first path segment to a host
+        # (`http://foo/bar`, `mailto://me@x`) would fabricate a bogus URL.
+        # Relative URLs (`/path`, `about.html`) have no host either. Drop
+        # all of those.
+        if not re.match(r'(?i)^https?:///', url):
+            return None
+        # Recover the host from the path, then re-normalize. The repaired
+        # URL has a real host, so it can't re-enter this branch.
+        repaired = repair_empty_authority(u)
+        return normalize_url(repaired) if repaired else None
+    # Only http(s) URLs are crawlable web links; drop any other scheme
+    # (e.g. `ftp:`, or a scheme-less protocol-relative `//host/...`) even
+    # when it carries a host.
+    if not u.scheme.startswith("http"):
+        return None
+    # Rebuild the authority from the host alone, dropping any
+    # `user:password@` credentials. IDN-encode non-ASCII hosts. The stock
+    # `idna` codec is strict — empty labels, labels over 63 chars, a trailing
+    # dot or underscores can raise UnicodeError — so treat an un-encodable
+    # host as unparseable (return None) rather than letting it crash the whole
+    # extraction, since normalize_url runs outside the loop's try/except.
+    if h.isascii():
+        n = h
+    else:
+        try:
+            n = h.encode('idna').decode('ascii')
+        except UnicodeError:
+            return None
+    if u.port:
+        # u.port is an int; cast before concatenating onto the host.
+        n += ':' + str(u.port)
+    p = u.path or '/'
     return urlunparse((u.scheme, n, p, u.params, u.query, ''))
 
 
@@ -97,8 +153,9 @@ if args.exclude:
 logging.info('Extracting links from %d markdown files', len(web_languages_files))
 
 
-total_links = 0
-total_excluded = 0
+total_accepted = 0
+total_pattern_excluded = 0
+total_unparseable = 0
 live = defaultdict(int)
 
 for path in web_languages_files:
@@ -110,16 +167,38 @@ for path in web_languages_files:
     except Exception as e:
         logging.error('Error in converted HTML from <%s>: %s', path, e)
         continue
-    links = list(map(normalize_url,
-                     [link['href'] for link in soup.find_all('a', href=True)]))
-    links_exclusions = list(map(lambda l: exclusion_pattern.search(l), links))
-    n_excluded = len(list(filter(lambda e: e, links_exclusions)))
+    links = []
+    links_not_parseable = []
+    for link in soup.find_all('a', href=True):
+        link_str = link.get('href')
+        normalized = normalize_url(link_str) if link_str else None
+        if normalized:
+            links.append(normalized)
+        else:
+            # No crawlable host (relative, mailto:, unrecoverable). Drop it.
+            links_not_parseable.append(link_str)
+
+    # With exclusions disabled (`--exclude ''`), exclusion_pattern is None,
+    # so nothing is excluded.
+    if exclusion_pattern:
+        links_exclusions = [exclusion_pattern.search(link) for link in links]
+    else:
+        links_exclusions = [None] * len(links)
+    # Three disjoint buckets, all derived from the same total extracted count.
+    n_pattern_excluded = len(list(filter(lambda e_: e_, links_exclusions)))
+    n_unparseable = len(links_not_parseable)
+    n_accepted = len(links) - n_pattern_excluded
+    # Total links extracted from this file: parseable + unparseable. The
+    # parseable ones split into accepted and pattern-excluded.
+    n_total = len(links) + n_unparseable
+    n_excluded = n_pattern_excluded + n_unparseable
     print('### {} links from {}{}'.format(
-        len(links) - n_excluded, path,
-        ' (excluded: {} out of {})'.format(n_excluded, len(links))
+        n_accepted, path,
+        ' (excluded: {} out of {})'.format(n_excluded, n_total)
         if n_excluded else ''))
-    total_links += len(links) - n_excluded
-    total_excluded += n_excluded
+    total_accepted += n_accepted
+    total_pattern_excluded += n_pattern_excluded
+    total_unparseable += n_unparseable
     for link, excluded in zip(links, links_exclusions):
         if excluded:
             print('##-', link)
@@ -129,8 +208,9 @@ for path in web_languages_files:
 
 
 logging.info('Found %d links in %d markdown files.',
-             total_links + total_excluded, len(web_languages_files))
-logging.info('Accepted %d links, %d excluded by pattern.',
-             total_links, total_excluded)
+             total_accepted + total_pattern_excluded + total_unparseable,
+             len(web_languages_files))
+logging.info('Accepted %d links, %d excluded by pattern, %d unparseable.',
+             total_accepted, total_pattern_excluded, total_unparseable)
 logging.info('%d languages have non-excluded links',
              len(live))
