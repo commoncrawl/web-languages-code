@@ -1,0 +1,42 @@
+name: Extract links
+
+# Smoke test: run this repo's extract_links.py against the web-languages DATA repo so any
+# change to the code is validated against real data on every push and PR. extract_links.py
+# globs the relative folders (living/, constructed/, extinct/, historical/) of the DATA repo,
+# so the script must run with the data repo as its working directory. We keep this code repo
+# at $GITHUB_WORKSPACE (where requirements.txt and extract_links.py live) and check out the
+# data repo into a subdirectory, then run the script from inside it. Any uncaught exception
+# fails the job.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  extract-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code repo (this repo, web-languages-code)
+        uses: actions/checkout@v4
+
+      - name: Check out data repo (web-languages)
+        uses: actions/checkout@v4
+        with:
+          repository: commoncrawl/web-languages
+          path: data
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run extract_links.py
+        # CWD must be the data repo root (the script glob-loads relative folders there);
+        # the script itself lives at the workspace root (this code repo).
+        working-directory: data
+        run: python "$GITHUB_WORKSPACE/extract_links.py"
